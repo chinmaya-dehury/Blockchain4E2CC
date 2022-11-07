@@ -1,0 +1,9 @@
+# curl -sSL http://bit.ly/2ysbOFE | bash -s
+
+
+
+
+#docker volume prune
+#docker rmi -f $(docker images -q)
+#docker rm -f $(docker ps -aq)
+#(cd chaincodes/chaincode-kv-node && nvm use && npm i && npm run start:watch)

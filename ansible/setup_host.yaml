@@ -1,0 +1,116 @@
+---
+- hosts: hyperledger_fabric_core
+  gather_facts: true
+  become: true
+  become_method: sudo
+
+
+  tasks:
+      - name: Install aptitude
+        apt:
+          name: aptitude
+          state: latest
+          update_cache: true
+
+      - name: Install required system packages
+        apt:
+          pkg:
+            - apt-transport-https
+            - ca-certificates
+            - curl
+            - software-properties-common
+            - python3-pip
+            - virtualenv
+            - python3-setuptools
+            - git
+            - python3-dev
+            - jq
+          state: latest
+          update_cache: true
+
+      - name: Add Docker GPG apt Key
+        apt_key:
+          url: https://download.docker.com/linux/ubuntu/gpg
+          state: present
+
+      - name: Add Docker Repository
+        apt_repository:
+          repo: deb https://download.docker.com/linux/ubuntu focal stable
+          state: present
+
+      - name: Update apt and install docker-ce
+        apt:
+          name: docker-ce
+          state: latest
+          update_cache: true
+
+      - name: Install Docker Module for Python
+        pip:
+          name: docker
+      
+      - name: Install Docker Compose
+        get_url:
+          url: https://github.com/docker/compose/releases/download/1.28.2/docker-compose-Linux-x86_64
+          dest: /usr/local/bin/docker-compose
+          mode: u+x,g+x,o+x
+
+      # START : Install and setup Nodejs
+      - name: nodejs - add repository key
+        apt_key:
+          url: "{{ item }}"
+        with_items:
+          - "http://deb.nodesource.com/gpgkey/nodesource.gpg.key"
+          - "https://dl.yarnpkg.com/debian/pubkey.gpg"
+
+      - name: nodejs - add repository
+        apt_repository:
+          repo: "{{ item }}"
+          state: present
+          update_cache: yes
+        with_items:
+          - "deb http://deb.nodesource.com/node_14.x {{ ansible_lsb.codename }} main"
+          - "deb-src http://deb.nodesource.com/node_14.x {{ ansible_lsb.codename }} main"
+          - "deb https://dl.yarnpkg.com/debian/ stable main"
+
+      - name: nodejs - install
+        apt:
+          name: "{{ item }}"
+          state: "present"
+        with_items:
+          - "nodejs"
+          - "yarn"
+
+
+      # END : Install and setup Nodejs
+
+      - name: Ensure docker deamon is running
+        service:
+          name: docker
+          state: started
+        become: true
+      
+      - name: Create "docker" group
+        group:
+          name: docker
+          state: present
+
+      # sudo usermod -aG docker root # TODO: This is not working. Need to figure out why.https://www.digitalocean.com/community/questions/how-to-fix-docker-got-permission-denied-while-trying-to-connect-to-the-docker-daemon-socket
+      - name: Add remote user to docker group
+        user:
+          name: "{{ ansible_user_id }}"
+          group: docker
+          append: yes
+      
+      - name: Reboot host and wait for it to restart
+        reboot:
+          msg: "Reboot initiated by Ansible"
+          connect_timeout: 5
+          reboot_timeout: 600
+          pre_reboot_delay: 0
+          post_reboot_delay: 30
+          test_command: whoami
+
+
+      #TODO : Install and setup Go https://go.dev/doc/install
+      #TODO : Setup GOPATH and GOROOT
+      #TODO : Install fablo and setup 
