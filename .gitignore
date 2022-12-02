@@ -3,3 +3,7 @@ fablo/fablo-target
 wrapper/__pycache__
 fablo/chaincodes/chaincode-kv-node/node_modules/**/*
 sensor-*/**/*
+.minio/**/*
+fognode/__pycache__/*
+wrapper/__pycache__/*
+__pycache__/*

@@ -9,7 +9,7 @@
     {
       "organization": {
         "name": "Orderer",
-        "domain": "orderer.tartucitycouncil.example.com"
+        "domain": "orderer.tartucitycouncil.ie.io"
       },
       "orderers": [
         {
@@ -18,12 +18,14 @@
           "instances": 1
         }
       ],
-      "tools": {}
+      "tools": {
+        "fabloRest": true
+      }
     },
     {
       "organization": {
         "name": "tartucitycouncil",
-        "domain": "tartucitycouncil.example.com"
+        "domain": "tartucitycouncil.ie.io"
       },
       "peer": {
         "instances": 2,
@@ -34,7 +36,7 @@
     {
       "organization": {
         "name": "solarpanelvendor",
-        "domain": "solarpanelvendor.example.com"
+        "domain": "solarpanelvendor.ie.io"
       },
       "peer": {
         "instances": 2,
@@ -45,7 +47,7 @@
     {
       "organization": {
         "name": "tartutransport",
-        "domain": "tartutransport.example.com"
+        "domain": "tartutransport.ie.io"
       },
       "peer": {
         "instances": 2,
@@ -56,7 +58,7 @@
     {
       "organization": {
         "name": "vendor2",
-        "domain": "vendor2.example.com"
+        "domain": "vendor2.ie.io"
       },
       "peer": {
         "instances": 2,
@@ -67,7 +69,7 @@
     {
       "organization": {
         "name": "vendor3",
-        "domain": "vendor3.example.com"
+        "domain": "vendor3.ie.io"
       },
       "peer": {
         "instances": 2,

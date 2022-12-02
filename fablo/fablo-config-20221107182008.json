@@ -1,208 +1,190 @@
 {
-    "$schema": "https://github.com/hyperledger-labs/fablo/releases/download/1.1.0/schema.json",
-    "global": {
-        "fabricVersion": "2.4.0",
-        "tls": false,
-        "peerDevMode": false
+  "$schema": "https://github.com/hyperledger-labs/fablo/releases/download/1.1.0/schema.json",
+  "global": {
+    "fabricVersion": "2.4.0",
+    "tls": false,
+    "peerDevMode": false
+  },
+  "orgs": [
+    {
+      "organization": {
+        "name": "Orderer",
+        "domain": "orderer.tartucitycouncil.ie.io"
+      },
+      "orderers": [
+        {
+          "groupName": "group1",
+          "type": "solo",
+          "instances": 1
+        }
+      ],
+      "tools": {}
     },
-    "orgs": [
+    {
+      "organization": {
+        "name": "tartucitycouncil",
+        "domain": "tartucitycouncil.ie.io"
+      },
+      "peer": {
+        "instances": 2,
+        "db": "CouchDb"
+      },
+      "tools": {}
+    },
+    {
+      "organization": {
+        "name": "solarpanelvendor",
+        "domain": "solarpanelvendor.ie.io"
+      },
+      "peer": {
+        "instances": 2,
+        "db": "CouchDb"
+      },
+      "tools": {}
+    },
+    {
+      "organization": {
+        "name": "tartutransport",
+        "domain": "tartutransport.ie.io"
+      },
+      "peer": {
+        "instances": 2,
+        "db": "CouchDb"
+      },
+      "tools": {}
+    },
+    {
+      "organization": {
+        "name": "vendor2",
+        "domain": "vendor2.ie.io"
+      },
+      "peer": {
+        "instances": 2,
+        "db": "CouchDb"
+      },
+      "tools": {}
+    },
+    {
+      "organization": {
+        "name": "vendor3",
+        "domain": "vendor3.ie.io"
+      },
+      "peer": {
+        "instances": 2,
+        "db": "CouchDb"
+      },
+      "tools": {}
+    },
+    {
+      "organization": {
+        "name": "avecitycouncil",
+        "domain": "avecitycouncil.ie.io"
+      },
+      "peer": {
+        "instances": 2,
+        "db": "CouchDb"
+      },
+      "tools": {}
+    }
+  ],
+  "channels": [
+    {
+      "name": "tartucitycouncilchannel",
+      "orgs": [
         {
-            "organization": {
-                "name": "Orderer",
-                "domain": "orderer.tartucitycouncil.example.com"
-            },
-            "orderers": [
-                {
-                    "groupName": "group1",
-                    "type": "solo",
-                    "instances": 1
-                }
-            ],
-            "tools": {}
-        },
-        {
-            "organization": {
-                "name": "tartucitycouncil",
-                "domain": "tartucitycouncil.example.com"
-            },
-            "peer": {
-                "instances": 2,
-                "db": "CouchDb"
-            },
-            "tools": {}
-        },
-        {
-            "organization": {
-                "name": "solarpanelvendor",
-                "domain": "solarpanelvendor.example.com"
-            },
-            "peer": {
-                "instances": 2,
-                "db": "CouchDb"
-            },
-            "tools": {}
-        },
-        {
-            "organization": {
-                "name": "tartutransport",
-                "domain": "tartutransport.example.com"
-            },
-            "peer": {
-                "instances": 2,
-                "db": "CouchDb"
-            },
-            "tools": {}
-        },
-        {
-            "organization": {
-                "name": "vendor2",
-                "domain": "vendor2.example.com"
-            },
-            "peer": {
-                "instances": 2,
-                "db": "CouchDb"
-            },
-            "tools": {}
-        },
-        {
-            "organization": {
-                "name": "vendor3",
-                "domain": "vendor3.example.com"
-            },
-            "peer": {
-                "instances": 2,
-                "db": "CouchDb"
-            },
-            "tools": {}
-        },
-        {
-            "organization": {
-                "name": "avecitycouncil",
-                "domain": "avecitycouncil.example.com"
-            },
-            "peer": {
-                "instances": 2,
-                "db": "CouchDb"
-            },
-            "tools": {}
+          "name": "tartucitycouncil",
+          "peers": ["peer0", "peer1"]
         }
-    ],
-    "channels": [
+      ]
+    },
+    {
+      "name": "tartutransportchannel",
+      "orgs": [
         {
-            "name": "tartucitycouncilchannel",
-            "orgs": [
-                {
-                    "name": "tartucitycouncil",
-                    "peers": [
-                        "peer0",
-                        "peer1"
-                    ]
-                }
-            ]
-        },
-        {
-            "name": "tartutransportchannel",
-            "orgs": [
-                {
-                    "name": "tartutransport",
-                    "peers": [
-                        "peer0",
-                        "peer1"
-                    ]
-                }
-            ]
-        },
-        {
-            "name": "solarpanelvendorchannel",
-            "orgs": [
-                {
-                    "name": "solarpanelvendor",
-                    "peers": [
-                        "peer0",
-                        "peer1"
-                    ]
-                }
-            ]
-        },
-        {
-            "name": "vendor2channel",
-            "orgs": [
-                {
-                    "name": "vendor2",
-                    "peers": [
-                        "peer0",
-                        "peer1"
-                    ]
-                }
-            ]
-        },
-        {
-            "name": "vendor3channel",
-            "orgs": [
-                {
-                    "name": "vendor2",
-                    "peers": [
-                        "peer0",
-                        "peer1"
-                    ]
-                }
-            ]
-        },
-        {
-            "name": "avecitycouncilchannel",
-            "orgs": [
-                {
-                    "name": "avecitycouncil",
-                    "peers": [
-                        "peer0",
-                        "peer1"
-                    ]
-                }
-            ]
+          "name": "tartutransport",
+          "peers": ["peer0", "peer1"]
         }
-    ],
-    "chaincodes": [
+      ]
+    },
+    {
+      "name": "solarpanelvendorchannel",
+      "orgs": [
         {
-            "name": "tartucitycouncil",
-            "version": "0.0.1",
-            "lang": "node",
-            "channel": "tartucitycouncilchannel",
-            "directory": "./chaincodes/chaincode-kv-node"
-        },
-        {
-            "name": "solarpanelvendor",
-            "version": "0.0.1",
-            "lang": "node",
-            "channel": "solarpanelvendorchannel",
-            "directory": "./chaincodes/chaincode-kv-node"
-        },
-        {
-            "name": "tartutransport",
-            "version": "0.0.1",
-            "lang": "node",
-            "channel": "tartutransportchannel",
-            "directory": "./chaincodes/chaincode-kv-node"
-        },
-        {
-            "name": "vendor2",
-            "version": "0.0.1",
-            "lang": "node",
-            "channel": "vendor2channel",
-            "directory": "./chaincodes/chaincode-kv-node"
-        },
-        {
-            "name": "vendor3",
-            "version": "0.0.1",
-            "lang": "node",
-            "channel": "vendor3channel",
-            "directory": "./chaincodes/chaincode-kv-node"
-        },
-        {
-            "name": "avechaincode",
-            "version": "0.0.1",
-            "lang": "node",
-            "channel": "avecitycouncilchannel",
-            "directory": "./chaincodes/chaincode-kv-node"
+          "name": "solarpanelvendor",
+          "peers": ["peer0", "peer1"]
         }
-    ]
+      ]
+    },
+    {
+      "name": "vendor2channel",
+      "orgs": [
+        {
+          "name": "vendor2",
+          "peers": ["peer0", "peer1"]
+        }
+      ]
+    },
+    {
+      "name": "vendor3channel",
+      "orgs": [
+        {
+          "name": "vendor2",
+          "peers": ["peer0", "peer1"]
+        }
+      ]
+    },
+    {
+      "name": "avecitycouncilchannel",
+      "orgs": [
+        {
+          "name": "avecitycouncil",
+          "peers": ["peer0", "peer1"]
+        }
+      ]
+    }
+  ],
+  "chaincodes": [
+    {
+      "name": "tartucitycouncil",
+      "version": "0.0.1",
+      "lang": "node",
+      "channel": "tartucitycouncilchannel",
+      "directory": "./chaincodes/chaincode-kv-node"
+    },
+    {
+      "name": "solarpanelvendor",
+      "version": "0.0.1",
+      "lang": "node",
+      "channel": "solarpanelvendorchannel",
+      "directory": "./chaincodes/chaincode-kv-node"
+    },
+    {
+      "name": "tartutransport",
+      "version": "0.0.1",
+      "lang": "node",
+      "channel": "tartutransportchannel",
+      "directory": "./chaincodes/chaincode-kv-node"
+    },
+    {
+      "name": "vendor2",
+      "version": "0.0.1",
+      "lang": "node",
+      "channel": "vendor2channel",
+      "directory": "./chaincodes/chaincode-kv-node"
+    },
+    {
+      "name": "vendor3",
+      "version": "0.0.1",
+      "lang": "node",
+      "channel": "vendor3channel",
+      "directory": "./chaincodes/chaincode-kv-node"
+    },
+    {
+      "name": "avechaincode",
+      "version": "0.0.1",
+      "lang": "node",
+      "channel": "avecitycouncilchannel",
+      "directory": "./chaincodes/chaincode-kv-node"
+    }
+  ]
 }
