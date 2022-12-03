@@ -1,2 +1,4 @@
 flask==2.2.2
 pika==1.2.1
+iterators==0.1.0
+minio==7.1.12
