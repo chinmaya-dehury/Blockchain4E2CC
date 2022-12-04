@@ -57,8 +57,8 @@
     },
     {
       "organization": {
-        "name": "vendor2",
-        "domain": "vendor2.ie.io"
+        "name": "vendortwo",
+        "domain": "vendortwo.ie.io"
       },
       "peer": {
         "instances": 2,
@@ -68,8 +68,8 @@
     },
     {
       "organization": {
-        "name": "vendor3",
-        "domain": "vendor3.ie.io"
+        "name": "vendorthree",
+        "domain": "vendorthree.ie.io"
       },
       "peer": {
         "instances": 2,
@@ -108,19 +108,19 @@
       ]
     },
     {
-      "name": "vendor2channel",
+      "name": "vendortwochannel",
       "orgs": [
         {
-          "name": "vendor2",
+          "name": "vendortwo",
           "peers": ["peer0", "peer1"]
         }
       ]
     },
     {
-      "name": "vendor3channel",
+      "name": "vendorthreechannel",
       "orgs": [
         {
-          "name": "vendor2",
+          "name": "vendorthree",
           "peers": ["peer0", "peer1"]
         }
       ]
@@ -149,17 +149,17 @@
       "directory": "./chaincodes/chaincode-kv-node"
     },
     {
-      "name": "vendor2",
+      "name": "vendortwo",
       "version": "0.0.1",
       "lang": "node",
-      "channel": "vendor2channel",
+      "channel": "vendortwochannel",
       "directory": "./chaincodes/chaincode-kv-node"
     },
     {
-      "name": "vendor3",
+      "name": "vendorthree",
       "version": "0.0.1",
       "lang": "node",
-      "channel": "vendor3channel",
+      "channel": "vendorthreechannel",
       "directory": "./chaincodes/chaincode-kv-node"
     }
   ]
