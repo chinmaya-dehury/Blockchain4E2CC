@@ -4,4 +4,4 @@ Blockchain for Edge to Cloud Continuum
 
 # Draft Architecture
 
-![Alt Draft Architecture](architecture_draft_v1.png "Draft Architecture")
+![Alt Draft Architecture](docs/architecture_draft_v2.png "Draft Architecture")
