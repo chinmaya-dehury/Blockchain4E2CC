@@ -9,7 +9,7 @@
     {
       "organization": {
         "name": "Orderer",
-        "domain": "orderer.tartucitycouncil.example.com"
+        "domain": "orderer.tartucitycouncil.ie.io"
       },
       "orderers": [
         {
@@ -18,12 +18,14 @@
           "instances": 1
         }
       ],
-      "tools": {}
+      "tools": {
+        "fabloRest": true
+      }
     },
     {
       "organization": {
         "name": "tartucitycouncil",
-        "domain": "tartucitycouncil.example.com"
+        "domain": "tartucitycouncil.ie.io"
       },
       "peer": {
         "instances": 2,
@@ -34,7 +36,7 @@
     {
       "organization": {
         "name": "solarpanelvendor",
-        "domain": "solarpanelvendor.example.com"
+        "domain": "solarpanelvendor.ie.io"
       },
       "peer": {
         "instances": 2,
@@ -45,7 +47,7 @@
     {
       "organization": {
         "name": "tartutransport",
-        "domain": "tartutransport.example.com"
+        "domain": "tartutransport.ie.io"
       },
       "peer": {
         "instances": 2,
@@ -55,8 +57,8 @@
     },
     {
       "organization": {
-        "name": "vendor2",
-        "domain": "vendor2.example.com"
+        "name": "vendortwo",
+        "domain": "vendortwo.ie.io"
       },
       "peer": {
         "instances": 2,
@@ -66,8 +68,8 @@
     },
     {
       "organization": {
-        "name": "vendor3",
-        "domain": "vendor3.example.com"
+        "name": "vendorthree",
+        "domain": "vendorthree.ie.io"
       },
       "peer": {
         "instances": 2,
@@ -106,19 +108,19 @@
       ]
     },
     {
-      "name": "vendor2channel",
+      "name": "vendortwochannel",
       "orgs": [
         {
-          "name": "vendor2",
+          "name": "vendortwo",
           "peers": ["peer0", "peer1"]
         }
       ]
     },
     {
-      "name": "vendor3channel",
+      "name": "vendorthreechannel",
       "orgs": [
         {
-          "name": "vendor2",
+          "name": "vendorthree",
           "peers": ["peer0", "peer1"]
         }
       ]
@@ -147,17 +149,17 @@
       "directory": "./chaincodes/chaincode-kv-node"
     },
     {
-      "name": "vendor2",
+      "name": "vendortwo",
       "version": "0.0.1",
       "lang": "node",
-      "channel": "vendor2channel",
+      "channel": "vendortwochannel",
       "directory": "./chaincodes/chaincode-kv-node"
     },
     {
-      "name": "vendor3",
+      "name": "vendorthree",
       "version": "0.0.1",
       "lang": "node",
-      "channel": "vendor3channel",
+      "channel": "vendorthreechannel",
       "directory": "./chaincodes/chaincode-kv-node"
     }
   ]
