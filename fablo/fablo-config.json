@@ -31,7 +31,9 @@
         "instances": 2,
         "db": "CouchDb"
       },
-      "tools": {}
+      "tools": {
+        "fabloRest": true
+      }
     },
     {
       "organization": {
@@ -42,7 +44,9 @@
         "instances": 2,
         "db": "CouchDb"
       },
-      "tools": {}
+      "tools": {
+        "fabloRest": true
+      }
     },
     {
       "organization": {
@@ -53,7 +57,9 @@
         "instances": 2,
         "db": "CouchDb"
       },
-      "tools": {}
+      "tools": {
+        "fabloRest": true
+      }
     },
     {
       "organization": {
@@ -64,7 +70,9 @@
         "instances": 2,
         "db": "CouchDb"
       },
-      "tools": {}
+      "tools": {
+        "fabloRest": true
+      }
     },
     {
       "organization": {
@@ -75,7 +83,9 @@
         "instances": 2,
         "db": "CouchDb"
       },
-      "tools": {}
+      "tools": {
+        "fabloRest": true
+      }
     }
   ],
 

@@ -1,6 +1,6 @@
 # # ref code snippet adapted from https://stackoverflow.com/a/39337670
 
-
+# NOTE This was the the V1 of the proposed archtecture. This is no longer used. The new architecture is in the folder `fognode`
 import time
 from minio_utils import MiniOClient
 import threading
