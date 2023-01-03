@@ -30,8 +30,6 @@ ansible-playbook setup-fabric.yaml -i inventory/hosts.yaml
 
 ```
 
-If the previous ansible playbooks succeed, you would have a working Hyperledger Fabric network running.
-
 To setup the the fog node blockchain network,
 
 ```
@@ -39,9 +37,16 @@ cd fognode/fablo
 fablo up fablo-config.json
 ```
 
-The network setup should take a while to complete.
+To setup the main blockchain network
 
-If the commands above all complete successfully, you should have two Fabric networks running and a Minio server running.
+```
+cd fablo
+fablo up fablo-config.json
+```
+
+The networks setup should take a while to complete.
+
+If the commands above all complete successfully, you should have two Fabric networks.
 
 1. A blockchain that hosts the fog environment with just one organization and two peers
 2. A main blockchain with five organizations having two peers each. This network has 2 orderers
