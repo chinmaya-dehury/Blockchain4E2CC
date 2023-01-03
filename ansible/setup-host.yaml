@@ -100,6 +100,13 @@
           name: "{{ ansible_user_id }}"
           group: docker
           append: yes
+
+      # install and setup minio
+      - name: Install minio deb
+        apt:
+          deb: https://dl.min.io/server/minio/release/linux-amd64/minio_20221212192727.0.0_amd64.deb
+          state: present
+          update_cache: true
       
       - name: Reboot host and wait for it to restart
         reboot:
@@ -113,4 +120,4 @@
 
       #TODO : Install and setup Go https://go.dev/doc/install
       #TODO : Setup GOPATH and GOROOT
-      #TODO : Install fablo and setup 
+  

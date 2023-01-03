@@ -85,7 +85,13 @@ def post_to_gateway(data):
     blockchain_id = data['org'] + ":" + \
         data['device'] + ":" + data['timestamp']
     print("Sending with key ", blockchain_id)
-    return s.post(url=API_ENDPOINT, headers=headers, json={"method": "KVContract:put", "args": [blockchain_id, str(data)]})
+    try:  # Not really needed as this only handles situations where the gateway is down while restarting the network
+        response = s.post(url=API_ENDPOINT, headers=headers, json={
+                          "method": "KVContract:put", "args": [blockchain_id, str(data)]})
+        print(response.text)
+        return response
+    except Exception as e:
+        print("Error sending data to gateway: ", e)
 
 
 def get_free_tcp_port():

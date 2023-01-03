@@ -1,3 +1,3 @@
 [hyperledger_fabric_core]
-#master ansible_host=20.238.24.208 ansible_port=22 ansible_user=hyperledger ansible_ssh_private_key_file=/Users/AY54750/.ssh/id_rsa
-master ansible_host=192.168.64.3 ansible_port=22 ansible_user=ubuntu ansible_ssh_private_key_file=/Users/AY54750/.ssh/id_rsa
+#master ansible_host=20.238.24.208 ansible_port=22 ansible_user=hyperledger ansible_ssh_private_key_file=/Users/.ssh/id_rsa
+master ansible_host=192.168.64.3 ansible_port=22 ansible_user=ubuntu ansible_ssh_private_key_file=/Users/.ssh/id_rsa

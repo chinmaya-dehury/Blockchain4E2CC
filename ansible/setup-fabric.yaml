@@ -7,3 +7,17 @@
 #docker rmi -f $(docker images -q)
 #docker rm -f $(docker ps -aq)
 #(cd chaincodes/chaincode-kv-node && nvm use && npm i && npm run start:watch)
+
+
+
+
+- hosts: fognode
+  gather_facts: true
+  become: true
+  become_method: sudo
+
+  tasks:
+
+  - name: Install fablo
+    shell:
+      "sudo curl -Lf https://github.com/hyperledger-labs/fablo/releases/download/1.1.0/fablo.sh -o /usr/local/bin/fablo && sudo chmod +x /usr/local/bin/fablo"
