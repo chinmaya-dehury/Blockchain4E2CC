@@ -96,18 +96,51 @@
 
       # sudo usermod -aG docker root # TODO: This is not working. Need to figure out why.https://www.digitalocean.com/community/questions/how-to-fix-docker-got-permission-denied-while-trying-to-connect-to-the-docker-daemon-socket
       - name: Add remote user to docker group
-        user:
-          name: "{{ ansible_user_id }}"
-          group: docker
-          append: yes
+        shell:
+          "sudo usermod -aG docker {{ ansible_user }}" # TODO: replace ubuntu with {{ ansible_user }}
 
       # install and setup minio
       - name: Install minio deb
         apt:
-          deb: https://dl.min.io/server/minio/release/linux-amd64/minio_20221212192727.0.0_amd64.deb
+          deb: https://dl.min.io/server/minio/release/linux-amd64/minio_20230102094009.0.0_amd64.deb
           state: present
           update_cache: true
       
+
+      - name: Install fablo
+        shell:
+          "sudo curl -Lf https://github.com/hyperledger-labs/fablo/releases/download/1.1.0/fablo.sh -o /usr/local/bin/fablo && sudo chmod +x /usr/local/bin/fablo"
+
+     
+      - name: ensure nginx is at the latest version
+        apt:
+          name: nginx
+          state: latest
+      - name: start nginx
+        service: 
+          name: nginx
+          state: started
+          enabled: yes 
+      
+      - name: remove default nginx config
+        file:
+          path: /etc/nginx/sites-enabled/default
+          state: absent
+      
+      # - name: copy mino config file
+      #   copy:
+      #     src: '{{ playbook_dir }}/config/minio.conf'
+      #     dest: /etc/nginx/sites-enabled/minio
+      #     owner: " {{ ansible_user }}"
+      #     group: " {{ ansible_user }}"
+      #     mode: 0644
+      #     force: yes
+      #     backup: yes
+      #     remote_src: false
+      #     validate: nginx -t -c %s
+      
+      
+    
       - name: Reboot host and wait for it to restart
         reboot:
           msg: "Reboot initiated by Ansible"
@@ -118,6 +151,5 @@
           test_command: whoami
 
 
-      #TODO : Install and setup Go https://go.dev/doc/install
-      #TODO : Setup GOPATH and GOROOT
+      #TODO: Setup nginx to serve the static files from the minio server and automate the whole alliasing process for the minio server
   

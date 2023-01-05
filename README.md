@@ -19,6 +19,7 @@ You would to ensure you have Python3.x installed locally on your test machine.
 To install the prerequsites, clone the repository and run the ansible playbook contained in `ansible/`. You would have to set the `ip address` of the host in `ansible/inventory/hosts.yaml`. This playbook also installs and sets up the `minio` server.
 
 ```
+cd ansible
 ansible-playbook setup-host.yaml -i inventory/hosts.yaml
 
 ```
@@ -26,6 +27,7 @@ ansible-playbook setup-host.yaml -i inventory/hosts.yaml
 To setup the main blockchain network, again, you would have to set the `ip address` of the host in `ansible/inventory/hosts.yaml` and
 
 ```
+cd ansible
 ansible-playbook setup-fabric.yaml -i inventory/hosts.yaml
 
 ```

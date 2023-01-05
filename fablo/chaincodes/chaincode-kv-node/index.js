@@ -1,5 +1,6 @@
 const { Contract } = require("fabric-contract-api");
 const crypto = require("crypto");
+const { encrypt, decrypt } = require("./crypto");
 
 class KVContract extends Contract {
   constructor() {
@@ -11,7 +12,7 @@ class KVContract extends Contract {
   }
 
   async put(ctx, key, value) {
-    await ctx.stub.putState(key, Buffer.from(value));
+    await ctx.stub.putState(key, encrypt(Buffer.from(value)));
     return { success: "OK" };
   }
 
