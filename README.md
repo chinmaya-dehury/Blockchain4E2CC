@@ -53,6 +53,20 @@ If the commands above all complete successfully, you should have two Fabric netw
 1. A blockchain that hosts the fog environment with just one organization and two peers
 2. A main blockchain with five organizations having two peers each. This network has 2 orderers
 
+# Starting Minio Server
+
+As unencrypted data would be stored offchain on `minio`, we need to start the minio server. The minio server was setup when the first ansible playbook was ran. On the host of the main blockchain network,
+
+```
+MINIO_ROOT_USER=$MINIO_ROOT_USER MINIO_ROOT_PASSWORD=$MINIO_ROOT_PASSWORD minio server /mnt/data --console-address ":9001"
+
+```
+
+Where MINIO_ROOT_USER abd MINIO_ROOT_PASSWORD are enviroment variables of you choice. Next, generate(from the Minio Web interface) and set the following environment variables
+MINIO_URL,MINIO_PORT,MINIO_ACCESS_KEY,MINIO_SECRET
+
+![Alt Minio Web Console](docs/minio-web-console.png "Minio Web Console")
+
 Now, it time to do some testing!!
 
 # Registering Sensors on the Fog Node
