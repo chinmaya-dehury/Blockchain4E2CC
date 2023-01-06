@@ -19,8 +19,12 @@ class KVContract extends Contract {
       process.env.MINIO_SECRET
     );
     const valueObj = JSON.parse(value);
-    bucketName = (valueObj.org + valueObj.device + "Bucket").toLowerCase();
-    objectName =
+    const bucketName = (
+      valueObj.org +
+      valueObj.device +
+      "Bucket"
+    ).toLowerCase();
+    const objectName =
       "json/" +
       valueObj.timestamp.toString() +
       "-" +
