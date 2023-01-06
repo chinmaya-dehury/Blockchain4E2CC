@@ -125,6 +125,8 @@ py app.py
 
 ```
 
+# MinIO Web Interface
+
 Mock Sensor data should now be generated and sent to the fognode. You should see some logs
 
 ![Alt Sensor One Log](docs/sensor-one-log.png "Sensor One Log")
