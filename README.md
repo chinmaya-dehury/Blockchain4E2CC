@@ -125,11 +125,11 @@ py app.py
 
 ```
 
-# MinIO Web Interface
-
 Mock Sensor data should now be generated and sent to the fognode. You should see some logs
 
 ![Alt Sensor One Log](docs/sensor-one-log.png "Sensor One Log")
+
+# MinIO Web Interface
 
 You can visit the Minio Server Web Console to see Mock data being recieved from the Main Blockchain after such data is hashed and stored.
 
