@@ -1,18 +1,41 @@
 const { Contract } = require("fabric-contract-api");
 const crypto = require("crypto");
 const { encrypt, decrypt } = require("./crypto");
+const Client = require("./utils/minio-utils");
 
 class KVContract extends Contract {
-  constructor() {
-    super("KVContract");
-  }
-
   async instantiate() {
     // function that will be invoked on chaincode instantiation
   }
 
   async put(ctx, key, value) {
+    // encrypt data before storing on ledger
     await ctx.stub.putState(key, encrypt(Buffer.from(value)));
+    // send unencrypted data to minio
+    const minioClient = new Client(
+      process.env.MINIO_URL,
+      process.env.MINIO_PORT,
+      process.env.MINIO_ACCESS_KEY,
+      process.env.MINIO_SECRET
+    );
+    const valueObj = JSON.parse(value);
+    bucketName = (valueObj.org + valueObj.device + "Bucket").toLowerCase();
+    objectName =
+      "json/" +
+      valueObj.timestamp.toString() +
+      "-" +
+      valueObj.org +
+      "-" +
+      valueObj.device +
+      ".json";
+    //objectData = JSON.stringify(valueObj);
+
+    minioClient.putJson(bucketName, objectName, valueObj, function (err) {
+      if (err) {
+        return console.log(err);
+      }
+      console.log("File uploaded successfully.");
+    });
     return { success: "OK" };
   }
 
