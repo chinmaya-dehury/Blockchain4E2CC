@@ -102,7 +102,7 @@
       # install and setup minio
       - name: Install minio deb
         apt:
-          deb: https://dl.min.io/server/minio/release/linux-amd64/minio_20230102094009.0.0_amd64.deb
+          deb: https://dl.min.io/server/minio/release/linux-amd64/minio_20230112020616.0.0_amd64.deb
           state: present
           update_cache: true
       

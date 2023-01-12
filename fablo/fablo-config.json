@@ -28,7 +28,7 @@
         "domain": "tartucitycouncil.ie.io"
       },
       "peer": {
-        "instances": 2,
+        "instances": 1,
         "db": "CouchDb"
       },
       "tools": {
@@ -41,7 +41,7 @@
         "domain": "solarpanelvendor.ie.io"
       },
       "peer": {
-        "instances": 2,
+        "instances": 1,
         "db": "CouchDb"
       },
       "tools": {
@@ -54,7 +54,7 @@
         "domain": "tartutransport.ie.io"
       },
       "peer": {
-        "instances": 2,
+        "instances": 1,
         "db": "CouchDb"
       },
       "tools": {
@@ -67,7 +67,7 @@
         "domain": "vendortwo.ie.io"
       },
       "peer": {
-        "instances": 2,
+        "instances": 1,
         "db": "CouchDb"
       },
       "tools": {
@@ -80,7 +80,7 @@
         "domain": "vendorthree.ie.io"
       },
       "peer": {
-        "instances": 2,
+        "instances": 1,
         "db": "CouchDb"
       },
       "tools": {
@@ -95,7 +95,7 @@
       "orgs": [
         {
           "name": "tartucitycouncil",
-          "peers": ["peer0", "peer1"]
+          "peers": ["peer0"]
         }
       ]
     },
@@ -104,7 +104,7 @@
       "orgs": [
         {
           "name": "tartutransport",
-          "peers": ["peer0", "peer1"]
+          "peers": ["peer0"]
         }
       ]
     },
@@ -113,7 +113,7 @@
       "orgs": [
         {
           "name": "solarpanelvendor",
-          "peers": ["peer0", "peer1"]
+          "peers": ["peer0"]
         }
       ]
     },
@@ -122,7 +122,7 @@
       "orgs": [
         {
           "name": "vendortwo",
-          "peers": ["peer0", "peer1"]
+          "peers": ["peer0"]
         }
       ]
     },
@@ -131,7 +131,7 @@
       "orgs": [
         {
           "name": "vendorthree",
-          "peers": ["peer0", "peer1"]
+          "peers": ["peer0"]
         }
       ]
     }

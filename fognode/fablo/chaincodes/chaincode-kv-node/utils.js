@@ -16,7 +16,7 @@ async function getToken() {
 
 async function sendDatatoBlockchain(data) {
   const ENDPOINT =
-    "http://44.203.194.115:8801/invoke/tartucitycouncilchannel/tartucitycouncil";
+    "http://3.84.37.18:8801/invoke/tartucitycouncilchannel/tartucitycouncil";
   const headers = {
     Authorization: "Bearer " + (await getToken()),
     "Content-Type": "application/json",

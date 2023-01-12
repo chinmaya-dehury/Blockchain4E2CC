@@ -1,5 +1,5 @@
 [hyperledger_fabric_core]
 #master ansible_host=20.238.24.208 ansible_port=22 ansible_user=hyperledger ansible_ssh_private_key_file=/Users/.ssh/id_rsa
 #master ansible_host=44.201.199.215 ansible_port=22 ansible_user=ubuntu ansible_ssh_private_key_file=/Users/.ssh/twalle-aws.pem
-master ansible_host=44.203.194.115 ansible_port=22 ansible_user=ubuntu ansible_ssh_private_key_file=/Users/AY54750/.ssh/twalle-aws.pem
+master ansible_host=3.239.22.51 ansible_port=22 ansible_user=ubuntu ansible_ssh_private_key_file=/Users/AY54750/.ssh/twalle-aws.pem
 #master ansible_host=172.17.90.82 ansible_port=22 ansible_user=ubuntu ansible_ssh_private_key_file=/Users/AY54750/.ssh/id_rsa
