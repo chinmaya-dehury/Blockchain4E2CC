@@ -28,7 +28,7 @@
         "domain": "fognode.ie.io"
       },
       "peer": {
-        "instances": 1,
+        "instances": 2,
         "db": "CouchDb"
       },
       "tools": {
@@ -43,7 +43,7 @@
       "orgs": [
         {
           "name": "fognode",
-          "peers": ["peer0"]
+          "peers": ["peer0", "peer1"]
         }
       ]
     }
