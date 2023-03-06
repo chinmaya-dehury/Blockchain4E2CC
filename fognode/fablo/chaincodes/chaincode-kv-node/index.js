@@ -71,6 +71,20 @@ class KVContract extends Contract {
     if (!buffer || !buffer.length) return { error: "NOT_FOUND" };
     return { success: buffer.toString() };
   }
+
+  async delete(ctx, id) {
+    const exists = await this.assetExists(ctx, id);
+    if (!exists) {
+      throw new Error(`The asset ${id} does not exist`);
+    }
+    return ctx.stub.delete(id);
+  }
+
+  // AssetExists returns true when asset with given ID exists in world state.
+  async assetExists(ctx, id) {
+    const assetJSON = await ctx.stub.get(id);
+    return assetJSON && assetJSON.length > 0;
+  }
 }
 
 exports.contracts = [KVContract];
