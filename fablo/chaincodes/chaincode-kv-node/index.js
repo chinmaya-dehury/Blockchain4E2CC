@@ -10,14 +10,9 @@ class KVContract extends Contract {
 
   async put(ctx, key, value) {
     // encrypt data before storing on ledger
-    console.log("KEY::", key);
-    console.log("VALUE:::", value);
     const hash = encrypt(Buffer.from(value, "utf8"));
-    console.log(hash);
     //console.log(typeof hash);
     const hashS = JSON.stringify(hash);
-    console.log("HASH STRING", hashS);
-    console.log(typeof hashS);
     // encrypt data before storing on ledger
     await ctx.stub.putState(key, hashS);
     //const hash = encrypt(Buffer.from(value, "utf8"));
@@ -43,7 +38,6 @@ class KVContract extends Contract {
       "-" +
       valueObj.device +
       ".json";
-    //objectData = JSON.stringify(valueObj);
 
     minioClient.putJson(bucketName, objectName, valueObj, function (err) {
       if (err) {

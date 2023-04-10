@@ -172,5 +172,8 @@
       "channel": "vendorthreechannel",
       "directory": "./chaincodes/chaincode-kv-node"
     }
-  ]
+  ],
+  "hooks": {
+    "postGenerate": "/usr/bin/perl post-generate-local.pl"
+  }
 }

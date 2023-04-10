@@ -13,7 +13,7 @@
       },
       "orderers": [
         {
-          "groupName": "group1",
+          //"groupName": "group1",
           "type": "solo",
           "instances": 1
         }
