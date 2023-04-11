@@ -1,0 +1,56 @@
+test:
+    name: basic-contract-benchmark
+    description: Benchmark for Main Blockchain Network
+    workers:
+      number: 1
+    rounds:
+      - label: tartucitycouncil
+        description: Read asset benchmark
+        txDuration: 30
+        rateControl:
+          type: fixed-load #sawtooth-load random-load dynamic-load fixed-load step-load
+          opts:
+            transactionLoad: 2
+        workload:
+          module: workload/readAsset.js
+          arguments:
+            assets: 500
+            contractId: tartucitycouncil
+monitors:
+  resource:
+    - module: docker
+      options:
+        interval: 500
+        cpuUsageNormalization: true
+        containers:
+          - all
+    
+    - module: process
+      options:
+        interval: 3
+        processes: [{ command: 'node', arguments: 'caliper.js', multiOutput: 'avg' }]
+    
+
+    - module: prometheus
+      options:
+        url: "http://172.17.91.150:9090"
+        metrics:
+            include: [dev-.*, couch, peer, orderer]
+            queries:
+                - name: Endorse Time (s)
+                  query: rate(endorser_propsal_duration_sum{chaincode="marbles:v0"}[1m])/rate(endorser_propsal_duration_count{chaincode="marbles:v0"}[1m])
+                  step: 1
+                  label: instance
+                  statistic: avg
+                - name: Max Memory (MB)
+                  query: sum(container_memory_rss{name=~".+"}) by (name)
+                  step: 10
+                  label: name
+                  statistic: max
+                  multiplier: 0.000001
+  
+  transaction:
+    - module: prometheus-push
+      options:
+        pushInterval: 5000
+        pushUrl: "http://localhost:9091"

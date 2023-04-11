@@ -1,0 +1,25 @@
+name: Caliper test
+version: "2.0.0"
+
+caliper:
+  blockchain: fabric
+
+channels:
+  - channelName: tartucitycouncilchannel
+    contracts:
+    - id: tartucitycouncil
+  
+
+organizations:
+  - mspid: tartucitycouncilMSP
+    identities:
+      certificates:
+      - name: 'Admin1'
+        clientPrivateKey:
+          path: '/home/ubuntu/Blockchain4E2CC/fablo/fablo-target/fabric-config/crypto-config/peerOrganizations/tartucitycouncil.ie.io/users/User1@tartucitycouncil.ie.io/msp/keystore/priv-key.pem'
+        clientSignedCert:
+          path: '/home/ubuntu/Blockchain4E2CC/fablo/fablo-target/fabric-config/crypto-config/peerOrganizations/tartucitycouncil.ie.io/users/User1@tartucitycouncil.ie.io/msp/signcerts/User1@tartucitycouncil.ie.io-cert.pem'
+    connectionProfile:
+      path: '/home/ubuntu/Blockchain4E2CC/fablo/fablo-target/fabric-config/connection-profiles/connection-profile-tartucitycouncil.yaml'
+      discover: true
+  
