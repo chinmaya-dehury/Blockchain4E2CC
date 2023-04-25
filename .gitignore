@@ -5,5 +5,8 @@ fablo/chaincodes/chaincode-kv-node/node_modules/**/*
 sensor-*/**/*
 .minio/**/*
 fognode/__pycache__/*
+fognode/.pytest_cache/**/*
+fognode/fablo/chaincodes/chaincode-kv-node/node_modules/**/*
+fognode/fablo/fablo-target
 wrapper/__pycache__/*
 __pycache__/*

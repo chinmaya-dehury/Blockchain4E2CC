@@ -1,17 +1,50 @@
 const { Contract } = require("fabric-contract-api");
 const crypto = require("crypto");
+const { encrypt, decrypt } = require("./crypto");
+const Client = require("./utils/minio-utils");
 
 class KVContract extends Contract {
-  constructor() {
-    super("KVContract");
-  }
-
   async instantiate() {
     // function that will be invoked on chaincode instantiation
   }
 
   async put(ctx, key, value) {
-    await ctx.stub.putState(key, Buffer.from(value));
+    // encrypt data before storing on ledger
+    const hash = encrypt(Buffer.from(value, "utf8"));
+    const hashS = JSON.stringify(hash);
+
+    await ctx.stub.putState(key, hashS);
+    //const hash = encrypt(Buffer.from(value, "utf8"));
+    //await ctx.stub.putState(key, hash);
+    // send unencrypted data to minio
+    const minioClient = new Client(
+      process.env.MINIO_URL,
+      process.env.MINIO_PORT,
+      process.env.MINIO_ACCESS_KEY,
+      process.env.MINIO_SECRET
+    );
+    const valueObj = JSON.parse(value);
+    const bucketName = (
+      valueObj.org +
+      valueObj.device +
+      "Bucket"
+    ).toLowerCase();
+    const objectName =
+      "json/" +
+      valueObj.timestamp.toString() +
+      "-" +
+      valueObj.org +
+      "-" +
+      valueObj.device +
+      ".json";
+    //objectData = JSON.stringify(valueObj);
+
+    minioClient.putJson(bucketName, objectName, valueObj, function (err) {
+      if (err) {
+        return console.log(err);
+      }
+      console.log("File uploaded successfully.");
+    });
     return { success: "OK" };
   }
 
@@ -21,29 +54,52 @@ class KVContract extends Contract {
     return { success: buffer.toString() };
   }
 
-  async putPrivateMessage(ctx, collection) {
-    const transient = ctx.stub.getTransient();
-    const message = transient.get("message");
-    await ctx.stub.putPrivateData(collection, "message", message);
-    return { success: "OK" };
-  }
+  // async putPrivateMessage(ctx, collection) {
+  //   const transient = ctx.stub.getTransient();
+  //   const message = transient.get("message");
+  //   await ctx.stub.putPrivateData(collection, "message", message);
+  //   return { success: "OK" };
+  // }
 
-  async getPrivateMessage(ctx, collection) {
-    const message = await ctx.stub.getPrivateData(collection, "message");
-    const messageString = message.toBuffer ? message.toBuffer().toString() : message.toString();
-    return { success: messageString };
-  }
+  // async getPrivateMessage(ctx, collection) {
+  //   const message = await ctx.stub.getPrivateData(collection, "message");
+  //   const messageString = message.toBuffer
+  //     ? message.toBuffer().toString()
+  //     : message.toString();
+  //   return { success: messageString };
+  // }
 
-  async verifyPrivateMessage(ctx, collection) {
-    const transient = ctx.stub.getTransient();
-    const message = transient.get("message");
-    const messageString = message.toBuffer ? message.toBuffer().toString() : message.toString();
-    const currentHash = crypto.createHash("sha256").update(messageString).digest("hex");
-    const privateDataHash = (await ctx.stub.getPrivateDataHash(collection, "message")).toString("hex");
-    if (privateDataHash !== currentHash) {
-      return { error: "VERIFICATION_FAILED" };
+  // async verifyPrivateMessage(ctx, collection) {
+  //   const transient = ctx.stub.getTransient();
+  //   const message = transient.get("message");
+  //   const messageString = message.toBuffer
+  //     ? message.toBuffer().toString()
+  //     : message.toString();
+  //   const currentHash = crypto
+  //     .createHash("sha256")
+  //     .update(messageString)
+  //     .digest("hex");
+  //   const privateDataHash = (
+  //     await ctx.stub.getPrivateDataHash(collection, "message")
+  //   ).toString("hex");
+  //   if (privateDataHash !== currentHash) {
+  //     return { error: "VERIFICATION_FAILED" };
+  //   }
+  //   return { success: "OK" };
+  // }
+
+  async delete(ctx, key) {
+    const exists = await this.assetExists(ctx, key);
+    if (!exists) {
+      throw new Error(`The asset ${key} does not exist`);
     }
-    return { success: "OK" };
+    return ctx.stub.delete(key);
+  }
+
+  // AssetExists returns true when asset with given ID exists in world state.
+  async assetExists(ctx, key) {
+    const assetJSON = await ctx.stub.get(key);
+    return assetJSON && assetJSON.length > 0;
   }
 }
 
