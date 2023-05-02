@@ -62,7 +62,7 @@ class KVContract extends Contract {
     console.log("Sending data to blockchain");
     sendDatatoBlockchain(payload);
     // TODO: We do not need to store anything on the ledger. Commenting out for later
-    await ctx.stub.putState(key, Buffer.from(JSON.stringify(data)));
+    //await ctx.stub.putState(key, Buffer.from(JSON.stringify(data)));
     return { success: "OK" };
   }
 

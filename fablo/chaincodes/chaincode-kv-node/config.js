@@ -1,0 +1,6 @@
+module.exports = {
+  MINIO_URL: "172.17.89.13",
+  MINIO_PORT: 9000,
+  MINIO_ACCESS_KEY: "qET998Jk37FjZ5oD",
+  MINIO_SECRET: "vx93BjcDJwSaUoJAyyvRe42ecYpLsykM",
+};
