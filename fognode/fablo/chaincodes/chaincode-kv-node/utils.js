@@ -1,6 +1,7 @@
 const fetch = require("node-fetch");
+const config = require("./config.js");
 async function getToken() {
-  const TOKEN_ENDPOINT = "http://44.203.194.115:8801/user/enroll";
+  const TOKEN_ENDPOINT = config.TOKEN_ENDPOINT;
   const headers = {
     Authorization: "Bearer ",
     "Content-Type": "application/json",
@@ -15,20 +16,18 @@ async function getToken() {
 }
 
 async function sendDatatoBlockchain(data) {
-  const ENDPOINT =
-    "http://3.84.37.18:8801/invoke/tartucitycouncilchannel/tartucitycouncil";
+  const PRIMARY_BLOCKCHAIN_ENDPOINT = config.PRIMARY_BLOCKCHAIN_ENDPOINT;
   const headers = {
     Authorization: "Bearer " + (await getToken()),
     "Content-Type": "application/json",
   };
-  const response = await fetch(ENDPOINT, {
+  const response = await fetch(PRIMARY_BLOCKCHAIN_ENDPOINT, {
     method: "POST",
     headers: headers,
     body: JSON.stringify(data),
   });
-  console.log("Sending data to endpoint: " + ENDPOINT);
+  console.log("Sending data to endpoint: " + PRIMARY_BLOCKCHAIN_ENDPOINT);
   return await response.json();
-  //console.log(_data);
 }
 module.exports = {
   sendDatatoBlockchain,

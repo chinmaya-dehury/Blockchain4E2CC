@@ -13,7 +13,7 @@
       },
       "orderers": [
         {
-          //"groupName": "group1",
+          "groupName": "group1",
           "type": "solo",
           "instances": 1
         }
@@ -28,7 +28,7 @@
         "domain": "fognode.ie.io"
       },
       "peer": {
-        "instances": 2,
+        "instances": 1,
         "db": "CouchDb"
       },
       "tools": {
@@ -43,7 +43,7 @@
       "orgs": [
         {
           "name": "fognode",
-          "peers": ["peer0", "peer1"]
+          "peers": ["peer0"]
         }
       ]
     }
