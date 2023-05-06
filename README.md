@@ -29,6 +29,74 @@ data to be stored in a secure and scalable manner
 
 [![How to use](docs/highlevel_overview_min.jpg)](https://youtu.be/pKvMTjo_5og)
 
+# Demo
+
+We have the EC2-architecture deployed in UT's HPC. It can be tested, but you will need to be connected to the UT's VPN
+
+## - Register a sensor on the Sensor Blockchain Network
+
+1. Generate an auth token from the Fabric CA on the Sensor Blockchain Network
+
+```bash
+curl --location 'http://172.17.89.13:8801/user/enroll' \
+--header 'Authorization: Bearer' \
+--header 'Content-Type: text/plain' \
+--data '{"id": "admin", "secret": "adminpw"}'
+
+```
+
+2. Register a particular sensor, in this case SensorOne of the TartuCityCouncil Organization
+
+```bash
+curl --location 'http://172.17.89.13:8801/invoke/fognodechannel/fognode' \
+--header 'Authorization: Bearer 32e92650-edfe-11ed-bdb9-b9b0558852d1-admin' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "method": "KVContract:registerSensor",
+  "args": [
+    "TartuCityCouncil:sensorOne",
+    "TartuCityCouncil:sensorOne@ut"
+  ]
+}
+```
+
+## - Generate Sensor Data
+
+1. Generate Sensor data from particular sensor, in this case SensorOne of the TartuCityCouncil Organization
+
+```bash
+git clone https://github.com/chinmaya-dehury/Blockchain4E2CC.git
+cd sensors/tartucitycouncil/sensor-one
+py app.py
+
+```
+
+Sensor data should now be generated, sent through the Sensor Block Network to the Primary BLockchain network and up to the MinIO Server.
+
+## - View Data in MinIO Server.
+
+Geenerated Sensor Data can be seen at
+
+URL: http://172.17.89.13/login
+
+USERNAME: hlf
+
+PASSWORD: hlf@minio@edge
+
+## - Verify if data has changed since it got generated and stored on MinIO .
+
+Generated data can be verified at
+
+http://172.17.89.13:5000
+
+Sample response for data that has not been tampered with
+
+![Verify Sensor data](docs/query_interface.png "Verify Sensor data")
+
+Sample response for data that has been tampered with
+
+![Verify Sensor data](docs/query_interface_failure.png "Verify Sensor data")
+
 # Architecture
 
 ![Alt Draft Architecture](docs/highlevel_overview_v2.jpg "EC2-Block Architecture")
