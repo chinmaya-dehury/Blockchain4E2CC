@@ -37,6 +37,7 @@ class KVContract extends Contract {
       timestamp: value.timestamp,
       org: value.org,
       device: value.device,
+      id: crypto.randomUUID(),
       arrivalTime: new Date().toISOString(), // time when the data arrived at the fog node
     };
 
