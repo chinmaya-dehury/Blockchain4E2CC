@@ -10,3 +10,4 @@ fognode/fablo/chaincodes/chaincode-kv-node/node_modules/**/*
 fognode/fablo/fablo-target
 wrapper/__pycache__/*
 __pycache__/*
+query-interface/__pycache__/*

@@ -9,45 +9,6 @@ class KVContract extends Contract {
     // function that will be invoked on chaincode instantiation
   }
 
-  // async put(ctx, key, data) {
-  //   // encrypt data before storing on ledger
-  //   const hash = hashData(data);
-
-  //   await ctx.stub.putState(key, hash);
-
-  //   const minioClient = new Client(
-  //     config.MINIO_URL,
-  //     config.MINIO_PORT,
-  //     config.MINIO_ACCESS_KEY,
-  //     config.MINIO_SECRET
-  //   );
-  //   const valueObj = JSON.parse(data);
-  //   // const bucketName = (
-  //   //   valueObj.org +
-  //   //   valueObj.device +
-  //   //   "Bucket"
-  //   // ).toLowerCase();
-  //   const bucketName = `${valueObj.org}${valueObj.device}Bucket`.toLowerCase();
-
-  //   // const objectName =
-  //   //   "json/" +
-  //   //   valueObj.timestamp.toString() +
-  //   //   "-" +
-  //   //   valueObj.org +
-  //   //   "-" +
-  //   //   valueObj.device +
-  //   //   ".json";
-  //   const objectName = `json/${valueObj.timestamp}-${valueObj.org}-${valueObj.device}.json`;
-
-  //   minioClient.putJson(bucketName, objectName, valueObj, function (err) {
-  //     if (err) {
-  //       return console.log(err);
-  //     }
-  //     console.log("File uploaded successfully.");
-  //   });
-  //   return { success: "OK" };
-  // }
-
   async put(ctx, key, data) {
     console.log("put called");
     const hash = hashData(data);
@@ -60,7 +21,7 @@ class KVContract extends Contract {
     );
     const valueObj = JSON.parse(data);
     const bucketName = `${valueObj.org}${valueObj.device}Bucket`.toLowerCase();
-    const objectName = `json/${valueObj.timestamp}-${valueObj.org}-${valueObj.device}.json`;
+    const objectName = `${valueObj.timestamp}-${valueObj.org}-${valueObj.device}.json`;
     minioClient.putJson(
       bucketName,
       objectName,
