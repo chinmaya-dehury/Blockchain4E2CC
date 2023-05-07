@@ -12,7 +12,8 @@ class KVContract extends Contract {
 
   async put(ctx, key, data) {
     console.log("put called");
-    data.arrivalTimeFromFognode = DateTime.now()
+    const valueObj = JSON.parse(data);
+    valueObj.arrivalTimeFromFognode = DateTime.now()
       .setZone("Europe/Helsinki")
       .toISO(); // time when the data arrived at the Primary Blockchain
     const hash = hashData(data);
@@ -23,10 +24,10 @@ class KVContract extends Contract {
       config.MINIO_ACCESS_KEY,
       config.MINIO_SECRET
     );
-    data.departureTimeFromPrimaryBlockchain = DateTime.now()
+    valueObj.departureTimeFromPrimaryBlockchain = DateTime.now()
       .setZone("Europe/Helsinki")
       .toISO(); // time when the data left the Primary Blockchain
-    const valueObj = JSON.parse(data);
+    //const valueObj = JSON.parse(data);
     const bucketName = `${valueObj.org}${valueObj.device}Bucket`.toLowerCase();
     const objectName = `json/${valueObj.timestamp}-${valueObj.org}-${valueObj.device}.json`;
     minioClient.putJson(
