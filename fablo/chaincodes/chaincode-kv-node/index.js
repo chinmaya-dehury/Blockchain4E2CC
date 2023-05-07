@@ -3,54 +3,18 @@ const crypto = require("crypto");
 const { hashData, compareHash } = require("./hash-helper");
 const Client = require("./utils/minio-utils");
 const config = require("./config.js");
+const { DateTime } = require("luxon");
 
 class KVContract extends Contract {
   async instantiate() {
     // function that will be invoked on chaincode instantiation
   }
 
-  // async put(ctx, key, data) {
-  //   // encrypt data before storing on ledger
-  //   const hash = hashData(data);
-
-  //   await ctx.stub.putState(key, hash);
-
-  //   const minioClient = new Client(
-  //     config.MINIO_URL,
-  //     config.MINIO_PORT,
-  //     config.MINIO_ACCESS_KEY,
-  //     config.MINIO_SECRET
-  //   );
-  //   const valueObj = JSON.parse(data);
-  //   // const bucketName = (
-  //   //   valueObj.org +
-  //   //   valueObj.device +
-  //   //   "Bucket"
-  //   // ).toLowerCase();
-  //   const bucketName = `${valueObj.org}${valueObj.device}Bucket`.toLowerCase();
-
-  //   // const objectName =
-  //   //   "json/" +
-  //   //   valueObj.timestamp.toString() +
-  //   //   "-" +
-  //   //   valueObj.org +
-  //   //   "-" +
-  //   //   valueObj.device +
-  //   //   ".json";
-  //   const objectName = `json/${valueObj.timestamp}-${valueObj.org}-${valueObj.device}.json`;
-
-  //   minioClient.putJson(bucketName, objectName, valueObj, function (err) {
-  //     if (err) {
-  //       return console.log(err);
-  //     }
-  //     console.log("File uploaded successfully.");
-  //   });
-  //   return { success: "OK" };
-  // }
-
   async put(ctx, key, data) {
     console.log("put called");
-    data.arrivalTimeFromFognode = new Date().toISOString(); // time when the data arrived at the Primary Blockchain
+    data.arrivalTimeFromFognode = DateTime.now()
+      .setZone("Europe/Helsinki")
+      .toISO(); // time when the data arrived at the Primary Blockchain
     const hash = hashData(data);
     await ctx.stub.putState(key, hash);
     const minioClient = new Client(
@@ -59,7 +23,9 @@ class KVContract extends Contract {
       config.MINIO_ACCESS_KEY,
       config.MINIO_SECRET
     );
-    data.departureTimeFromPrimaryBlockchain = new Date().toISOString(); // time when the data left the Primary Blockchain
+    data.departureTimeFromPrimaryBlockchain = DateTime.now()
+      .setZone("Europe/Helsinki")
+      .toISO(); // time when the data left the Primary Blockchain
     const valueObj = JSON.parse(data);
     const bucketName = `${valueObj.org}${valueObj.device}Bucket`.toLowerCase();
     const objectName = `json/${valueObj.timestamp}-${valueObj.org}-${valueObj.device}.json`;
