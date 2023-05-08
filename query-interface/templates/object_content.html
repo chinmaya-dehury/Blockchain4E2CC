@@ -111,9 +111,12 @@
         <form method="POST" action="{{ url_for('verify', id=data.id) }}">
           <input type="hidden" name="data" value="{{ data }}" />
           <button type="submit" class="btn btn-primary btn-lg btn-block">
-            Verify
+            Verify Payload
           </button>
         </form>
+        {% if new_info %}
+        <p>{{ "We have verified this data" }}</p>
+        {% endif %}
       </div>
     </div>
   </body>

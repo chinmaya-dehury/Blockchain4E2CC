@@ -51,7 +51,8 @@ class KVContract extends Contract {
       return { error: "Sensor not registered" };
     }
 
-    const blockchainID = data.org + ":" + data.device + ":" + data.timestamp; // this is the unique ID for the data on the blockchain. It is a combination of the org, device and timestamp and its the same from the fog node to the blockchain
+    //const blockchainID = data.org + ":" + data.device + ":" + data.timestamp; // this is the unique ID for the data on the blockchain. It is a combination of the org, device and timestamp and its the same from the fog node to the blockchain
+    const blockchainID = data.id; // 07.01 Meeting , we decided to use the id as the unique identifier for the data on the blockchain
     data.departTimeFromFogNode = DateTime.now()
       .setZone("Europe/Helsinki")
       .toISO(); // time when the data left the fog node
@@ -64,8 +65,6 @@ class KVContract extends Contract {
     // send data to blockchain
     console.log("Sending data to blockchain");
     sendDatatoBlockchain(payload);
-    // TODO: We do not need to store anything on the ledger. Commenting out for later
-    //await ctx.stub.putState(key, Buffer.from(JSON.stringify(data)));
     return { success: "OK" };
   }
 

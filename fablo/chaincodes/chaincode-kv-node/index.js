@@ -11,13 +11,10 @@ class KVContract extends Contract {
   }
 
   async put(ctx, key, data) {
-    console.log("put called");
     const valueObj = JSON.parse(data);
     valueObj.arrivalTimeFromFognode = DateTime.now()
       .setZone("Europe/Helsinki")
       .toISO(); // time when the data arrived at the Primary Blockchain
-    const hash = hashData(data);
-    await ctx.stub.putState(key, hash);
     const minioClient = new Client(
       config.MINIO_URL,
       config.MINIO_PORT,
@@ -27,7 +24,9 @@ class KVContract extends Contract {
     valueObj.departureTimeFromPrimaryBlockchain = DateTime.now()
       .setZone("Europe/Helsinki")
       .toISO(); // time when the data left the Primary Blockchain
-    //const valueObj = JSON.parse(data);
+    const payload = JSON.stringify(valueObj);
+    const payloadHash = hashData(payload);
+    await ctx.stub.putState(key, payloadHash);
     const bucketName = `${valueObj.org}${valueObj.device}Bucket`.toLowerCase();
     const objectName = `${valueObj.timestamp}-${valueObj.org}-${valueObj.device}.json`;
     minioClient.putJson(
@@ -43,6 +42,13 @@ class KVContract extends Contract {
     const buffer = await ctx.stub.getState(key);
     if (!buffer || !buffer.length) return { error: "NOT_FOUND" };
     return { success: buffer.toString() };
+  }
+
+  async getAndCompareHash(ctx, data, key) {
+    const buffer = await ctx.stub.getState(key); // get the hash from the ledger
+    if (!buffer || !buffer.length) return "Key Not Found"; // if the hash is not found, return an error
+    const hashMatch = compareHash(data, buffer.toString());
+    return { success: hashMatch };
   }
 
   async delete(ctx, key) {
