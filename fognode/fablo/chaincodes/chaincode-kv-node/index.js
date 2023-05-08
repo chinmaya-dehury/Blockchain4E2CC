@@ -2,6 +2,7 @@ const { Contract } = require("fabric-contract-api");
 const crypto = require("crypto");
 const { encrypt, decrypt } = require("./crypto");
 const { sendDatatoBlockchain } = require("./utils");
+const { DateTime } = require("luxon");
 
 class KVContract extends Contract {
   constructor() {
@@ -21,7 +22,6 @@ class KVContract extends Contract {
   async getSensor(ctx, key) {
     const buffer = await ctx.stub.getState(key);
     if (!buffer || !buffer.length) return { error: "NOT_FOUND" };
-    //const hash = buffer.toString();
     return { success: "Ok: Sensor is registered" };
   }
 
@@ -37,7 +37,8 @@ class KVContract extends Contract {
       timestamp: value.timestamp,
       org: value.org,
       device: value.device,
-      arrivalTime: new Date().toISOString(), // time when the data arrived at the fog node
+      id: crypto.randomUUID(),
+      arrivalTime: DateTime.now().setZone("Europe/Helsinki").toISO(), // time when the data arrived at the fog node
     };
 
     const buffer = await ctx.stub.getState("TartuCityCouncil:sensorOne"); //TODO: This should be the key of the sensor. Using a Static value for now
@@ -51,7 +52,9 @@ class KVContract extends Contract {
     }
 
     const blockchainID = data.org + ":" + data.device + ":" + data.timestamp; // this is the unique ID for the data on the blockchain. It is a combination of the org, device and timestamp and its the same from the fog node to the blockchain
-    data.departTimeFromFogNode = new Date().toISOString(); // time when the data left the fog node
+    data.departTimeFromFogNode = DateTime.now()
+      .setZone("Europe/Helsinki")
+      .toISO(); // time when the data left the fog node
     // ? Unsure, should the payload be constructed here or in the utils.js file?
     let payload = {
       method: "KVContract:put",

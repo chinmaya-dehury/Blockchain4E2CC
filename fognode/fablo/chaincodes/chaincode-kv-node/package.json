@@ -18,7 +18,8 @@
   "dependencies": {
     "fabric-contract-api": "^2.4.2",
     "fabric-shim": "^2.4.2",
-    "node-fetch": "^2.6.7"
+    "node-fetch": "^2.6.7",
+    "luxon": "^3.3.0"
   },
   "devDependencies": {
     "jest": "^26.6.3",

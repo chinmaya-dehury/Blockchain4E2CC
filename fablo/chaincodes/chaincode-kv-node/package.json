@@ -18,7 +18,8 @@
   "dependencies": {
     "fabric-contract-api": "^2.4.2",
     "fabric-shim": "^2.4.2",
-    "minio": "^7.0.32"
+    "minio": "^7.0.32",
+    "luxon": "^3.3.0"
   },
   "devDependencies": {
     "@theledger/fabric-mock-stub": "^5.0.1",
