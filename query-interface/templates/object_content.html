@@ -114,8 +114,13 @@
             Verify Payload
           </button>
         </form>
-        {% if new_info %}
-        <p>{{ "We have verified this data" }}</p>
+        <br />
+        {% if verified %}
+        <div class="alert alert-success" role="alert">
+          Payload verified successfully!
+        </div>
+        {% else%}
+        <div class="alert alert-danger" role="alert">Payload not verified!</div>
         {% endif %}
       </div>
     </div>
