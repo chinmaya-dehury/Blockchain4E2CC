@@ -50,10 +50,10 @@ def object_content(bucket_name, object_name):
 def verify(id):
     if request.method == 'POST':
         data = request.form['data']
-        new_string = data.replace("'", "\"")
-        new_string = new_string.replace(' ', '').replace('\t', '').replace('\n', '')
+        payload = data.replace("'", "\"")
+        payload = payload.replace(' ', '').replace('\t', '').replace('\n', '')
        # print("JSON AFTER CONVERSION",new_string)
-        response_dict = query_contract('tartucitycouncilchannel', 'tartucitycouncil', [new_string, id])
+        response_dict = query_contract('tartucitycouncilchannel', 'tartucitycouncil', [payload , id])
         success = response_dict['response']['success']
         if success:
             session['verified'] = True

@@ -67,7 +67,7 @@
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand" href="/">
         <img
           src="{{ url_for('static', filename='images/minio-logo.svg') }}"
           width="30"
@@ -75,7 +75,7 @@
           class="d-inline-block align-top"
           alt=""
         />
-        MinIO
+        EC2-Block - Sensor Data Browser
       </a>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
@@ -119,8 +119,11 @@
         <div class="alert alert-success" role="alert">
           Payload verified successfully!
         </div>
-        {% else%}
-        <div class="alert alert-danger" role="alert">Payload not verified!</div>
+        {% elif verified == False%}
+        <div class="alert alert-danger" role="alert">
+          Payload verification failed! The payload may have been tampered with
+          since it was first received.
+        </div>
         {% endif %}
       </div>
     </div>

@@ -11,3 +11,4 @@ fognode/fablo/fablo-target
 wrapper/__pycache__/*
 __pycache__/*
 query-interface/__pycache__/*
+sensors/tartucitycouncil/sensor-one/__pycache__/*
