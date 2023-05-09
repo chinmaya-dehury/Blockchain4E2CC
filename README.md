@@ -1,4 +1,4 @@
-# EC2-Block
+# E2C-Block
 
 E2C-Block is a proposed model
 architecture that aims to provide an effective solution for managing and securing data
