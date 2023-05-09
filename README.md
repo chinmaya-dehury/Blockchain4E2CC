@@ -95,7 +95,7 @@ MINIO_URL,MINIO_PORT,MINIO_ACCESS_KEY,MINIO_SECRET
 
 Now, it time to do some testing!!
 
-# Registering Sensors on the Fog Node
+# Registering Sensors on the Sensor Blockchain Network
 
 Before the Sensor Blockchain Network can accept any sensor data, that sensor needs to be registered on the Sensor Blockchain network, otherwise all data from such a sensor will be dropped.
 
